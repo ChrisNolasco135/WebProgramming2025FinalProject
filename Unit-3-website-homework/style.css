@@ -16,12 +16,13 @@
         background-color: rgb(39, 196, 64);
         position: relative;
     }
-    h2, label {
+    h2 {
         display: block;
         margin: 0;
         padding: 5px 10px;
         min-width: 100px;
         font-size: large;
+        font-weight: bold;
     }
     nav > div > div {
         display: none;
@@ -45,19 +46,19 @@
     nav a:hover {
         background-color: rgb(39, 255, 64);
     }
-    .container {
+    .item_boxes {
         max-width: 1231px;
         margin: 0 auto;
     }
     h3 {
         margin: 0;
     }
-    .alert {
+    .item_box_alert {
         background-color: rgb(255, 255, 255);
         border-left: 5px solid rgb(39, 196, 64);
         padding: 15px;
         margin: 25px;
     }
-    .yellow {
+    .item_box_extra_credit {
         border-color: rgb(245, 245, 80);
     }
