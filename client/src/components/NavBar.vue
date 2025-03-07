@@ -26,9 +26,19 @@ const isActive = ref(false)
                 <div class="navbar-start">
 
 
-                    <RouterLink to="/" class="navbar-item">Home</RouterLink>
-                    <RouterLink to="/MyStatistics" class="navbar-item">MyStatistics</RouterLink>
-                    <RouterLink to="/about" class="navbar-item">About</RouterLink>
+                    <RouterLink to="/" class="navbar-item">
+                      <span>
+                        <i class="fas fa-home"></i>
+                      </span>
+                      <span>Home</span>
+                    </RouterLink>
+                    <RouterLink to="/MyStatistics" class="navbar-item">
+                      <span>
+                        <i class="fas fa-chart-line"></i>
+                      </span>
+                      <span>MyStatistics</span>
+                    </RouterLink>
+
 
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
@@ -36,17 +46,17 @@ const isActive = ref(false)
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
+                            <a href=/about class="navbar-item">
                                 About
                             </a>
-                            <a class="navbar-item is-selected">
+                            <a href=/jobs class="navbar-item is-selected">
                                 Jobs
                             </a>
-                            <a class="navbar-item">
+                            <a href=/contact class="navbar-item">
                                 Contact
                             </a>
                             <hr class="navbar-divider">
-                            <a class="navbar-item">
+                            <a href=/ class="navbar-item">
                                 Report an issue
                             </a>
                         </div>
