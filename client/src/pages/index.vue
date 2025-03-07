@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-var bestClass = 'Web Programming'
 </script>
 
 <template>
   <main>
-    <h1 class="title">Welcome to {{ bestClass }}</h1>
+    <h1 class= "title has-text-black">Nolas Fitness Tracker</h1>
+    <p>This is a fitness tracker made for the Web Programming Final Project</p>
   </main>
 </template>

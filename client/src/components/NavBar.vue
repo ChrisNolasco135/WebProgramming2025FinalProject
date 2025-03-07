@@ -9,7 +9,7 @@ const isActive = ref(false)
     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://jewpaltz.com">
+                <a class="navbar-item" href="https://github.com/ChrisNolasco135/WebProgramming2025FinalProject.git">
                     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="30" />
                 </a>
 
@@ -27,12 +27,8 @@ const isActive = ref(false)
 
 
                     <RouterLink to="/" class="navbar-item">Home</RouterLink>
-                    <RouterLink to="/products" class="navbar-item">Products</RouterLink>
+                    <RouterLink to="/MyStatistics" class="navbar-item">MyStatistics</RouterLink>
                     <RouterLink to="/about" class="navbar-item">About</RouterLink>
-
-                    <a class="navbar-item">
-                        Documentation
-                    </a>
 
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
@@ -59,18 +55,35 @@ const isActive = ref(false)
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a class="button is-light">
-                                Log in
-                            </a>
+                            <div class="dropdown is-hoverable">
+                              <div class="dropdown-trigger">
+                                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+                                  <span>Users</span>
+                                    <span class="icon is-small">
+                                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+                              <div class="dropdown-content">
+                                <a href="#" class="dropdown-item"> User 1 </a>
+                                <a href="#" class="dropdown-item"> User 2 </a>
+                                <a href="#" class="dropdown-item"> User 3 </a>
+                                <a href="#" class="dropdown-item"> Admin </a>
+                                <hr class="dropdown-divider" />
+                                <a href="#" class="dropdown-item"> Add User </a>
+                              </div>
+                            </div>
                         </div>
-                    </div>
+                        <div>
+                            <button class="button is-primary">
+                                <strong>Tweet</strong>
+                            </button>
+                        </div>
+                      </div>
+                  </div>
                 </div>
             </div>
-        </div>
     </nav>
 </template>
 
