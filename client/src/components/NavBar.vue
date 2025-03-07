@@ -69,7 +69,7 @@ const isActive = ref(false)
                                 <a href="#" class="dropdown-item"> User 1 </a>
                                 <a href="#" class="dropdown-item"> User 2 </a>
                                 <a href="#" class="dropdown-item"> User 3 </a>
-                                <a href="#" class="dropdown-item"> Admin </a>
+                                <a href="#" class="dropdown-item"> Admin 1 </a>
                                 <hr class="dropdown-divider" />
                                 <a href="#" class="dropdown-item"> Add User </a>
                               </div>
