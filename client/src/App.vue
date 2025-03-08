@@ -13,10 +13,6 @@ import NavBar from './components/NavBar.vue'
     <NotificationList />
     <RouterView />
   </div>
-
-  <SlidingDrawer>
-    <ShoppingCart />
-  </SlidingDrawer>
 </template>
 
 <style>

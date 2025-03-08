@@ -1,7 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { getUsers } from '@/models/users';
+import type { users } from '@/models/users';
+import { isAdmin } from '@/models/users';
+import { getUserEmail } from '@/models/users';
 
 const isActive = ref(false)
+const users = ref<users[]>([])
+const selectedUserId = ref<number | null>(null)
+const selectedUserName = ref<String | null>(null)
+const isAdminSelected = computed(() => selectedUserId.value !== null)
+
+onMounted(() => {
+  users.value = getUsers()
+})
+
+function selectUser(userId: number, userName: String) {
+  selectedUserId.value = userId
+  selectedUserName.value = userName
+}
+
+
 
 </script>
 
@@ -24,21 +43,26 @@ const isActive = ref(false)
 
             <div class="navbar-menu" :class="{ 'is-active': isActive }">
                 <div class="navbar-start">
-
-
                     <RouterLink to="/" class="navbar-item">
                       <span>
                         <i class="fas fa-home"></i>
                       </span>
                       <span>Home</span>
                     </RouterLink>
-                    <RouterLink to="/MyStatistics" class="navbar-item">
+
+                    <RouterLink to="/statistics" class="navbar-item">
                       <span>
                         <i class="fas fa-chart-line"></i>
                       </span>
                       <span>MyStatistics</span>
                     </RouterLink>
 
+                    <RouterLink to="/social" class="navbar-item">
+                      <span>
+                        <i class="fas fa-users"></i>
+                      </span>
+                      <span>Friends</span>
+                    </RouterLink>
 
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
@@ -65,36 +89,45 @@ const isActive = ref(false)
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                            <div class="dropdown is-hoverable">
-                              <div class="dropdown-trigger">
+                      <div>
+                        <p>{{ selectedUserId !== null ? selectedUserName : 'Please Sign In' }}</p>
+                      </div>
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
                                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-                                  <span>Users</span>
+                                    <span class = "icon is-small">
+                                      <i class="fas fa-user-circle"></i>
+                                    </span>
+                                    <span>Users</span>
                                     <span class="icon is-small">
-                                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        <i class="fas fa-angle-down" aria-hidden="true"></i>
                                     </span>
                                 </button>
                             </div>
                             <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-                              <div class="dropdown-content">
-                                <a href="#" class="dropdown-item"> User 1 </a>
-                                <a href="#" class="dropdown-item"> User 2 </a>
-                                <a href="#" class="dropdown-item"> User 3 </a>
-                                <a href="#" class="dropdown-item"> Admin </a>
-                                <hr class="dropdown-divider" />
-                                <a href="#" class="dropdown-item"> Add User </a>
-                              </div>
+                                <div class="dropdown-content">
+                                    <button v-for="user in users" :key="user.id" href="#" class="dropdown-item" @click="selectUser(user.id, user.name)">
+                                        {{ user.name }}
+                                    </button>
+                                    <hr class="dropdown-divider" />
+                                    <a href="#" class="dropdown-item"> Edit Users </a>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <button class="button is-primary">
-                                <strong>Tweet</strong>
+                              <span class="icon">
+                              <i class="fab fa-twitter"></i>
+                              </span>
+                              <strong>Tweet</strong>
                             </button>
                         </div>
-                      </div>
-                  </div>
+                    </div>
                 </div>
             </div>
+        </div>
     </nav>
+
 </template>
 
 <style scoped></style>
