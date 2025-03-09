@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, provide } from 'vue'
 import { getUsers } from '@/models/users';
 import type { users } from '@/models/users';
-import { isAdmin } from '@/models/users';
-import { getUserEmail } from '@/models/users';
 
 const isActive = ref(false)
 const users = ref<users[]>([])
 const selectedUserId = ref<number | null>(null)
 const selectedUserName = ref<String | null>(null)
-const isAdminSelected = computed(() => selectedUserId.value !== null)
 
 onMounted(() => {
   users.value = getUsers()
@@ -20,7 +17,7 @@ function selectUser(userId: number, userName: String) {
   selectedUserName.value = userName
 }
 
-
+provide('selectedUserId', selectedUserId)
 
 </script>
 
@@ -70,25 +67,28 @@ function selectUser(userId: number, userName: String) {
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a href=/about class="navbar-item">
+                            <RouterLink to="/about" class="navbar-item">
                                 About
-                            </a>
-                            <a href=/jobs class="navbar-item is-selected">
+                            </RouterLink>
+                            <RouterLink to="/jobs" class="navbar-item is-selected">
                                 Jobs
-                            </a>
-                            <a href=/contact class="navbar-item">
+                            </RouterLink>
+                            <RouterLink to="/contact" class="navbar-item">
                                 Contact
-                            </a>
+                            </RouterLink>
                             <hr class="navbar-divider">
-                            <a href=/ class="navbar-item">
+                            <RouterLink to="/" class="navbar-item">
                                 Report an issue
-                            </a>
+                            </RouterLink>
                         </div>
                     </div>
                 </div>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
+                      <div>
+
+                      </div>
                       <div>
                         <p>{{ selectedUserId !== null ? selectedUserName : 'Please Sign In' }}</p>
                       </div>
@@ -109,8 +109,8 @@ function selectUser(userId: number, userName: String) {
                                     <button v-for="user in users" :key="user.id" href="#" class="dropdown-item" @click="selectUser(user.id, user.name)">
                                         {{ user.name }}
                                     </button>
-                                    <hr class="dropdown-divider" />
-                                    <a href="#" class="dropdown-item"> Edit Users </a>
+                                    <hr v-if="selectedUserId == 4" class="dropdown-divider" />
+                                    <RouterLink to ="/users" v-if="selectedUserId == 4" class="dropdown-item"> Edit Users </RouterLink>
                                 </div>
                             </div>
                         </div>

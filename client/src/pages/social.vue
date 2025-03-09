@@ -5,6 +5,7 @@ import WorkoutBox from '@/components/WorkoutBox.vue';
 
 <template>
   <WorkoutBox/>
+
 </template>
 
 <style scoped>
