@@ -6,7 +6,7 @@ import { getWorkoutActivity, type WorkoutActivity } from '@/models/workout'
 
 const usersArray = ref<users[]>([])
 const WorkoutActivities = ref<WorkoutActivity[]>([])
-const userImages = {
+const userImages: { [key: number]: string } = {
   1: new URL('@/assets/John Doe.svg', import.meta.url).href,
   2: new URL('@/assets/Jane Smith.svg', import.meta.url).href,
   3: new URL('@/assets/Alice Johnson.svg', import.meta.url).href,
@@ -27,7 +27,6 @@ function closeWorkout(userId: number) {
     user.show = false
   }
 }
-
 </script>
 
 <template>
@@ -45,7 +44,7 @@ function closeWorkout(userId: number) {
               <p class="has-text-black">
                 <strong class="has-text-black">{{ user.name }}</strong> <small>@{{ user.name.toLowerCase().replace(' ', '') }}</small>
                 <br />
-                <span v-for="activity in getUserActivities(user.id)" :key="user.id" class="has-text-black">
+                <span v-for="activity in getUserActivities(user.id)" :key="activity.id" class="has-text-black">
                   <span class="has-text-black">Type: {{ activity.type }}</span>
                   <br />
                   <small>{{ activity.description }}</small>
@@ -56,7 +55,6 @@ function closeWorkout(userId: number) {
                   <br />
                   <span class="has-text-black">Date: {{ activity.date }}</span>
                   <br />
-
                 </span>
               </p>
             </div>
@@ -78,7 +76,7 @@ function closeWorkout(userId: number) {
             </nav>
           </div>
         </div>
-        </article>
+      </article>
     </section>
   </div>
 </template>
