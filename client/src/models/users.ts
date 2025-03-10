@@ -1,8 +1,8 @@
 const users = [
-  { id: 1, name: 'John Doe', email: 'john.doe@example.com' ,isAdmin: false },
-  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', isAdmin: false },
-  { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', isAdmin: false },
-  { id: 4, name: 'Admin', email: 'example@example.com', isAdmin: true },
+  { id: 1, name: 'John Doe', email: 'john.doe@example.com' ,isAdmin: false, show:true, icon: '@/assests/John Doe.svg' },
+  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', isAdmin: false, show:true, icon: '@/assests/Jane Smith.svg'},
+  { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', isAdmin: false, show:true, icon: '@/assests/Alice Johnson.svg' },
+  { id: 4, name: 'Admin', email: 'example@example.com', isAdmin: true, show:true, icon: '@/assests/admin.svg'},
 ]
 
 export type users = {
@@ -10,6 +10,8 @@ export type users = {
   name: string
   email: string
   isAdmin: boolean
+  show: boolean
+  icon?: string
 }
 
 export function getUsers() {
@@ -32,8 +34,14 @@ export function getUserEmail(user: users) {
 export function getUserIsAdmin(user: users) {
   return user.isAdmin
 }
+export function getShow(user: users) {
+  return user.show
+}
+export function getUserIcon(user: users) {
+  return user.icon
+}
 
-export function isAdmin(userId: number) {
+export function isAdmin(userId: number | null) {
   const user = userId
   if (user === 4 || user === null) {
     return true

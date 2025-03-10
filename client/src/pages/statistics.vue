@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import StatisticsBox from '@/components/StatisticsBox.vue';
+
 
 </script>
 
 <template>
   <div>
-    <h1>Statistics</h1>
+    <h1 class = "title has-text-black">Statistics</h1>
     <StatisticsBox/>
   </div>
 </template>

@@ -4,8 +4,8 @@
 
 <template>
   <div class="about">
-    <h1 class="title">This is an about page</h1>
-    <h2 class="subtitle">About the best class at New Paltz</h2>
+    <h1 class="title has-text-black">This is an about page</h1>
+    <h2 class="subtitle has-text-black">Created By Christopher Nolasco</h2>
   </div>
 
 </template>

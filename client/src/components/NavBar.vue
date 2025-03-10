@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted, provide } from 'vue'
 import { getUsers } from '@/models/users';
+import { isAdmin } from '@/models/users';
 import type { users } from '@/models/users';
 
 const isActive = ref(false)
 const users = ref<users[]>([])
 const selectedUserId = ref<number | null>(null)
 const selectedUserName = ref<String | null>(null)
+const userImages = {
+  1: new URL('@/assets/John Doe.svg', import.meta.url).href,
+  2: new URL('@/assets/Jane Smith.svg', import.meta.url).href,
+  3: new URL('@/assets/Alice Johnson.svg', import.meta.url).href,
+  4: new URL('@/assets/admin.svg', import.meta.url).href,
+}
 
 onMounted(() => {
   users.value = getUsers()
@@ -16,8 +23,6 @@ function selectUser(userId: number, userName: String) {
   selectedUserId.value = userId
   selectedUserName.value = userName
 }
-
-provide('selectedUserId', selectedUserId)
 
 </script>
 
@@ -89,9 +94,18 @@ provide('selectedUserId', selectedUserId)
                       <div>
 
                       </div>
-                      <div>
-                        <p>{{ selectedUserId !== null ? selectedUserName : 'Please Sign In' }}</p>
-                      </div>
+                      <nav class = "level is-mobile">
+                        <div class="level-left">
+                          <div class="level-item">
+                            <div class="image is-64x64 mt-5">
+                              <img :src="userImages[selectedUserId]" alt="User Image" />
+                            </div>
+                          </div>
+                          <div class="level-item">
+                            <p>{{ selectedUserId !== null ? selectedUserName : 'Please Sign In' }}</p>
+                          </div>
+                        </div>
+                      </nav>
                         <div class="dropdown is-hoverable">
                             <div class="dropdown-trigger">
                                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
@@ -110,7 +124,7 @@ provide('selectedUserId', selectedUserId)
                                         {{ user.name }}
                                     </button>
                                     <hr v-if="selectedUserId == 4" class="dropdown-divider" />
-                                    <RouterLink to ="/users" v-if="selectedUserId == 4" class="dropdown-item"> Edit Users </RouterLink>
+                                    <RouterLink to ="/users" v-if="selectedUserId !== null && isAdmin(selectedUserId)" class="dropdown-item"> Edit Users </RouterLink>
                                 </div>
                             </div>
                         </div>
@@ -130,4 +144,5 @@ provide('selectedUserId', selectedUserId)
 
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
