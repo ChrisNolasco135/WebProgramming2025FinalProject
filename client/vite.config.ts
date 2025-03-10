@@ -16,7 +16,6 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
   ],
-  base: '/https://github.com/ChrisNolasco135/WebProgramming2025FinalProject.git/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
