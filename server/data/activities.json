@@ -1,0 +1,278 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Morning Yoga",
+            "type": "Yoga",
+            "duration": 30,
+            "caloriesBurned": 150,
+            "date": "2023-10-01T08:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 2,
+            "name": "Evening Run",
+            "type": "Running",
+            "duration": 45,
+            "caloriesBurned": 400,
+            "date": "2023-10-01T18:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 3,
+            "name": "Strength Training",
+            "type": "Weightlifting",
+            "duration": 60,
+            "caloriesBurned": 500,
+            "date": "2023-10-02T10:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 4,
+            "name": "HIIT Workout",
+            "type": "High Intensity Interval Training",
+            "duration": 30,
+            "caloriesBurned": 300,
+            "date": "2023-10-02T19:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 5,
+            "name": "Cycling",
+            "type": "Cycling",
+            "duration": 90,
+            "caloriesBurned": 600,
+            "date": "2023-10-03T07:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 6,
+            "name": "Pilates",
+            "type": "Pilates",
+            "duration": 45,
+            "caloriesBurned": 200,
+            "date": "2023-10-03T16:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 7,
+            "name": "Cardio Blast",
+            "type": "Cardio",
+            "duration": 30,
+            "caloriesBurned": 350,
+            "date": "2023-10-04T08:00:00Z",
+            "userId": 1
+        }
+        ,
+        {
+            "id": 8,
+            "name": "Zumba Dance",
+            "type": "Dance",
+            "duration": 60,
+            "caloriesBurned": 400,
+            "date": "2023-10-04T19:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 9,
+            "name": "Core Workout",
+            "type": "Core Training",
+            "duration": 30,
+            "caloriesBurned": 250,
+            "date": "2023-10-05T10:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 10,
+            "name": "Full Body Stretch",
+            "type": "Stretching",
+            "duration": 20,
+            "caloriesBurned": 100,
+            "date": "2023-10-05T18:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 11,
+            "name": "Trail Hiking",
+            "type": "Hiking",
+            "duration": 120,
+            "caloriesBurned": 700,
+            "date": "2023-10-06T07:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 12,
+            "name": "Boxing Training",
+            "type": "Boxing",
+            "duration": 45,
+            "caloriesBurned": 450,
+            "date": "2023-10-06T16:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 13,
+            "name": "Swimming Laps",
+            "type": "Swimming",
+            "duration": 60,
+            "caloriesBurned": 500,
+            "date": "2023-10-07T08:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 14,
+            "name": "Rock Climbing",
+            "type": "Climbing",
+            "duration": 90,
+            "caloriesBurned": 600,
+            "date": "2023-10-07T18:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 15,
+            "name": "Dance Cardio",
+            "type": "Dance Cardio",
+            "duration": 45,
+            "caloriesBurned": 350,
+            "date": "2023-10-08T10:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 16,
+            "name": "Meditation Session",
+            "type": "Meditation",
+            "duration": 30,
+            "caloriesBurned": 50,
+            "date": "2023-10-08T19:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 17,
+            "name": "CrossFit Workout",
+            "type": "CrossFit",
+            "duration": 60,
+            "caloriesBurned": 550,
+            "date": "2023-10-09T07:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 18,
+            "name": "Yoga Flow",
+            "type": "Yoga",
+            "duration": 45,
+            "caloriesBurned": 200,
+            "date": "2023-10-09T16:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 19,
+            "name": "Running Intervals",
+            "type": "Running",
+            "duration": 30,
+            "caloriesBurned": 400,
+            "date": "2023-10-10T08:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 20,
+            "name": "Strength Circuit",
+            "type": "Weightlifting",
+            "duration": 60,
+            "caloriesBurned": 500,
+            "date": "2023-10-10T18:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 21,
+            "name": "Pilates Core",
+            "type": "Pilates",
+            "duration": 45,
+            "caloriesBurned": 200,
+            "date": "2023-10-11T10:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 22,
+            "name": "Cycling Endurance",
+            "type": "Cycling",
+            "duration": 90,
+            "caloriesBurned": 600,
+            "date": "2023-10-11T19:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 23,
+            "name": "HIIT Cardio",
+            "type": "High Intensity Interval Training",
+            "duration": 30,
+            "caloriesBurned": 300,
+            "date": "2023-10-12T08:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 24,
+            "name": "Core Strengthening",
+            "type": "Core Training",
+            "duration": 30,
+            "caloriesBurned": 250,
+            "date": "2023-10-12T18:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 25,
+            "name": "Full Body Workout",
+            "type": "Full Body",
+            "duration": 60,
+            "caloriesBurned": 500,
+            "date": "2023-10-13T10:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 26,
+            "name": "Zumba Fitness",
+            "type": "Dance",
+            "duration": 60,
+            "caloriesBurned": 400,
+            "date": "2023-10-13T19:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 27,
+            "name": "Boxing Conditioning",
+            "type": "Boxing",
+            "duration": 45,
+            "caloriesBurned": 450,
+            "date": "2023-10-14T08:00:00Z",
+            "userId": 3
+        },
+        {
+            "id": 28,
+            "name": "Swimming Technique",
+            "type": "Swimming",
+            "duration": 60,
+            "caloriesBurned": 500,
+            "date": "2023-10-14T18:00:00Z",
+            "userId": 1
+        },
+        {
+            "id": 29,
+            "name": "Trail Running",
+            "type": "Running",
+            "duration": 45,
+            "caloriesBurned": 400,
+            "date": "2023-10-15T10:00:00Z",
+            "userId": 2
+        },
+        {
+            "id": 30,
+            "name": "Yoga Meditation",
+            "type": "Yoga",
+            "duration": 30,
+            "caloriesBurned": 150,
+            "date": "2023-10-15T19:00:00Z",
+            "userId": 3
+        }
+    ],
+    "total": 30,
+    "skip": 0,
+    "limit": 5
+}

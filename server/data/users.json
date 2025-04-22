@@ -1,0 +1,59 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john.doe@example.com",
+            "age": 30,
+            "gender": "male",
+            "bodyInfo": {
+                "height": 180,
+                "weight": 75
+            },
+            "icon": "@/assests/John Doe.svg",
+            "role": "user"
+        },
+        {   
+            "id": 2,
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "email": "jane.smith@example.com",
+            "age": 28,
+            "gender": "female",
+            "bodyInfo": {
+                "height": 165,
+                "weight": 60
+            },
+            "icon": "@/assests/Jane Smith.svg",
+            "role": "user"
+        },
+        {
+            "id": 3,
+            "firstName": "Alice", 
+            "lastName": "Johnson",
+            "email": "alice.johnson@example.com",
+            "age": 25,
+            "gender": "female",
+            "bodyInfo": {
+                "height": 170,
+                "weight": 55
+            },
+            "icon": "@/assests/Alice Johnson.svg",
+            "role": "user"
+        },
+        {
+            "id": 4,
+            "firstName": "Admin",
+            "lastName": "User",
+            "email": "example@example.com",
+            "gender": "male",
+            "age": 0,
+            "bodyInfo": {
+                "height": 0,
+                "weight": 0
+            },
+            "icon": "@/assests/admin.svg",
+            "role": "admin"
+        }]
+    }

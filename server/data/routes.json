@@ -1,0 +1,54 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Hometown Walk",
+            "distance": 4.7,
+            "duration": 107,
+            "difficulty": "Moderate",
+            "description": "A historic route through the heart of America, offering scenic views and cultural landmarks.",
+            "startLocation": "Nanuet, NY",
+            "endLocation": "New City, NY"
+        },
+        {
+            "id": 2,
+            "name": "Near University Walk",
+            "distance": 1.7,
+            "duration": 38,
+            "difficulty": "Easy",
+            "description": "A leisurely walk through the forest near the university campus, perfect for students and visitors.", 
+            "startLocation": "SUNY New Paltz, NY",
+            "endLocation": "Mohonk Preserve Testimonial Gateway, NY"
+        },
+        {
+            "id": 3,
+            "name": "Mountain Trail Adventure",
+            "distance": 12.5,
+            "duration": 240,
+            "difficulty": "Hard",
+            "description": "A challenging mountain trail that offers breathtaking views and a true test of endurance.",
+            "startLocation": "Bear Mountain State Park, NY",
+            "endLocation": "Harriman State Park, NY"
+        },
+        {
+            "id": 4,
+            "name": "City Park Loop",
+            "distance": 3.2,
+            "duration": 75,
+            "difficulty": "Easy",
+            "description": "A relaxing loop through the city park, ideal for families and casual walkers.",
+            "startLocation": "(South) Central Park, NY",
+            "endLocation": "(North) Central Park, NY"
+        },
+        {
+            "id": 5,
+            "name": "Riverside Trail",
+            "distance": 5.0,
+            "difficulty": "Moderate",
+            "duration": 90,
+            "description": "A scenic riverside trail that offers a peaceful escape from the city hustle.",
+            "startLocation": "Hudson River Park, NY",
+            "endLocation": "Riverside Park, NY"
+        }
+    ]
+}
