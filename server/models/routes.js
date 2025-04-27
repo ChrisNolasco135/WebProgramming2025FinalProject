@@ -1,3 +1,4 @@
+const data = require('../data/routes.json'); 
 const { connect } = require('./supabase');
 const { CustomError, statusCodes } = require('./errors');
 
@@ -53,4 +54,15 @@ module.exports = {
     }
     return data;
   },
+
+  async seed() {
+    for (const item of data.items) {
+      const { error } = await supabase.from('routes').insert([item]);
+      if (error) {
+        console.error('Error seeding routes:', error);
+        throw new CustomError('Failed to seed routes', statusCodes.INTERNAL_SERVER_ERROR);
+      }
+    }
+  }
+
 };

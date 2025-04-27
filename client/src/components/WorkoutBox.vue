@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { getUsers } from '@/models/users'
 import type { users } from '@/models/users'
-import { getWorkoutActivity, type WorkoutActivity } from '@/models/workout'
+import { getWorkoutActivity, type WorkoutActivity } from '@/models/activities'
 
 const usersArray = ref<users[]>([])
 const WorkoutActivities = ref<WorkoutActivity[]>([])

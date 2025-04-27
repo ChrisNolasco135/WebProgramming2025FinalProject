@@ -1,73 +1,69 @@
 const usersModel = require('../models/users');
 const { CustomError, statusCodes } = require('../models/errors');
+const express = require('express');
+const { route } = require('./activities');
 
-module.exports = {
+const router = express.Router();
+
+router
   // Get all users
-  async getAllUsers(req, res) {
-    try {
-      const users = await usersModel.getAllUsers();
-      res.status(statusCodes.OK).json(users);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Failed to fetch users' });
-    }
-  },
-
-  // Get a single user by ID
-  async getUserById(req, res) {
+  .get('/', function(req, res, next) {
+    usersModel.getAllUsers()
+      .then(users => res.json(users))
+      .catch(next);
+  })
+  // Get user by ID
+  .get('/:id', function(req, res, next) {
     const { id } = req.params;
-    try {
-      const user = await usersModel.getUserById(id);
-      if (!user) {
-        return res.status(statusCodes.NOT_FOUND).json({ error: `User with ID ${id} not found` });
-      }
-      res.status(statusCodes.OK).json(user);
-    } catch (error) {
-      console.error(`Error fetching user with ID ${id}:`, error);
-      res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Failed to fetch user' });
-    }
-  },
-
+    usersModel.getUserById(id)
+      .then(user => {
+        if (!user) {
+          return res.status(statusCodes.NOT_FOUND).json({ error: `User with ID ${id} not found` });
+        }
+        res.json(user);
+      })
+      .catch(next);
+  })
   // Add a new user
-  async addUser(req, res) {
+  .post('/', function(req, res, next) {
     const newUser = req.body;
-    try {
-      const user = await usersModel.addUser(newUser);
-      res.status(statusCodes.CREATED).json(user);
-    } catch (error) {
-      console.error('Error adding user:', error);
-      res.status(statusCodes.BAD_REQUEST).json({ error: 'Failed to add user' });
-    }
-  },
-
+    usersModel.addUser(newUser)
+      .then(user => {
+        res.status(statusCodes.CREATED).json(user);
+      })
+      .catch(next);
+  })
   // Update an existing user by ID
-  async updateUser(req, res) {
+  .patch('/:id', function(req, res, next) {
     const { id } = req.params;
     const updatedUser = req.body;
-    try {
-      const user = await usersModel.updateUser(id, updatedUser);
-      if (!user) {
-        return res.status(statusCodes.NOT_FOUND).json({ error: `User with ID ${id} not found` });
-      }
-      res.status(statusCodes.OK).json(user);
-    } catch (error) {
-      console.error(`Error updating user with ID ${id}:`, error);
-      res.status(statusCodes.BAD_REQUEST).json({ error: 'Failed to update user' });
-    }
-  },
-
+    usersModel.updateUser(id, updatedUser)
+      .then(user => {
+        if (!user) {
+          return res.status(statusCodes.NOT_FOUND).json({ error: `User with ID ${id} not found` });
+        }
+        res.json(user);
+      })
+      .catch(next);
+  }
   // Delete a user by ID
-  async deleteUser(req, res) {
+  .delete('/:id', function(req, res, next) {
     const { id } = req.params;
-    try {
-      const user = await usersModel.deleteUser(id);
-      if (!user) {
-        return res.status(statusCodes.NOT_FOUND).json({ error: `User with ID ${id} not found` });
-      }
-      res.status(statusCodes.OK).json({ message: `User with ID ${id} deleted successfully` });
-    } catch (error) {
-      console.error(`Error deleting user with ID ${id}:`, error);
-      res.status(statusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Failed to delete user' });
-    }
-  },
-};
+    usersModel.deleteUser(id)
+      .then(() => {
+        res.status(statusCodes.NO_CONTENT).send();
+      })
+      .catch(next);
+  }
+  )
+  // Seed users data
+  .post('/seed', function(req, res, next) {
+    usersModel.seed()
+      .then(() => {
+        res.status(statusCodes.CREATED).json({ message: 'Users seeded successfully' });
+      })
+      .catch(next);
+  }
+  ));
+
+module.exports = router;

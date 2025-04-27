@@ -1,3 +1,4 @@
+const data = require('../data/activites.json'); 
 const { connect } = require('./supabase');
 const { CustomError, statusCodes } = require('./errors');
 
@@ -20,6 +21,9 @@ module.exports = {
     if (error) {
       console.error(`Error fetching activity with ID ${activityId}:`, error);
       throw new CustomError(`Failed to fetch activity with ID ${activityId}`, statusCodes.NOT_FOUND);
+    }
+    if (!data) {
+      throw new CustomError(`Activity with ID ${activityId} not found`, statusCodes.NOT_FOUND);
     }
     return data;
   },
@@ -63,4 +67,29 @@ module.exports = {
     }
     return data;
   },
+
+  async seed(){
+    for (const item of data.items) {
+
+        const insert = mapToDB(item)
+        const { data: newItem, error } = await supabase.from('activities').insert(insert).select('*')
+        if (error) {
+            throw error
+        }
+
+    }
+    return { message: 'Seeded successfully' }
+  }
 };
+
+function mapToDB(item) {
+  return {
+    id: item.id,
+    name: item.name,
+    type: item.type,
+    duration: item.duration,
+    calories: item.calories,
+    date: item.date,
+    user_id: item.userId,
+  };
+}

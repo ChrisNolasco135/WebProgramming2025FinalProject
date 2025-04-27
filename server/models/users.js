@@ -1,3 +1,5 @@
+const data = require('../data/users.json'); 
+const { CustomError, statusCodes } = require('./errors')
 const { connect } = require('./supabase');
 
 const supabase = connect();
@@ -52,4 +54,35 @@ module.exports = {
     }
     return data;
   },
+
+  async seed(){
+    for (const item of data.items) {
+
+        const insert = mapToDB(item)
+        const { data: newItem, error } = await supabase.from('users').insert(insert).select('*')
+        if (error) {
+            throw error
+        }
+
+    }
+    return { message: 'Seeded successfully' }
+  }
 };
+
+function mapToDB(item) {
+  return {
+   id: item.id,
+   firstName: item.name,
+   lastName: item.surname,
+   email: item.email,
+   age: item.age,
+   gender: item.gender,
+   bodyInfo: {
+      height: item.height,
+      weight: item.weight
+    },
+   icon: item.icon,
+   role: item.role
+  }
+};
+
