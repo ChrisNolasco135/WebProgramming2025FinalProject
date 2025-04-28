@@ -45,7 +45,7 @@ router
         res.json(user);
       })
       .catch(next);
-  }
+  })
   // Delete a user by ID
   .delete('/:id', function(req, res, next) {
     const { id } = req.params;
@@ -64,6 +64,6 @@ router
       })
       .catch(next);
   }
-  ));
+  );
 
 module.exports = router;

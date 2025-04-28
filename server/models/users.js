@@ -50,7 +50,7 @@ module.exports = {
   async deleteUser(userId) {
     const { data, error } = await supabase.from(TABLE).delete().eq('id', userId);
     if (error) {
-      console.error(`Error deleting user with ID ${userId}:`, error);
+      console.error('Error deleting user with ID ${userId}:', error);
       throw error;
     }
     return data;

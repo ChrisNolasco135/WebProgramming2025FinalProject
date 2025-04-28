@@ -59,7 +59,7 @@ router
   }
   )
   // Seed routes data
-  .seed('/', function(req, res, next) {
+  .post('/seed', function(req, res, next) {
     routesModel.seed()
       .then(() => {
         res.status(statusCodes.CREATED).json({ message: 'Routes seeded successfully' });

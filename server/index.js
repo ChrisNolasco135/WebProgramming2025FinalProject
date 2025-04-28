@@ -1,12 +1,15 @@
 /*  B"H
 */
 // Load the http module to create an http server.
-
-const activitiesRouter = require('./controllers/activities');
-const usersRouter = require('./controllers/users');
-const routesRouter = require('./controllers/routes');
 const express = require('express')
 require('dotenv').config()
+console.log('Environment Variables:', process.env)
+
+const activitiesController = require('./controllers/activities');
+const usersController = require('./controllers/users');
+const routesController = require('./controllers/routes');
+
+
 
 const PORT = process.env.PORT ?? 8000
 const app = express();
@@ -21,13 +24,6 @@ app.use((req, res, next) => {
   next()
 })
   app.use(express.json())
-
-app.get('/', (req, res) => {
-  res.send('Hello New Paltz, NY!!!')
-})
-.use('/api/v1/activities', activitiesRouter)
-.use('/api/v1/users', usersRouter)
-.use('/api/v1/routes', routesRouter)
 
 app
   .get('/hello', (req, res) => {
