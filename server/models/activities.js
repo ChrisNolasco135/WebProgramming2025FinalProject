@@ -1,13 +1,14 @@
-const data = require('../data/activites.json'); 
+const data = require('../data/activities.json'); 
 const { connect } = require('./supabase');
 const { CustomError, statusCodes } = require('./errors');
 
 const supabase = connect();
+const TABLE = 'activities'; // Define the table name for clarity
 
 module.exports = {
   // Fetch all activities
   async getAllActivities() {
-    const { data, error } = await supabase.from('activities').select('*');
+    const { data, error } = await supabase.from(TABLE).select('*');
     if (error) {
       console.error('Error fetching activities:', error);
       throw new CustomError('Failed to fetch activities', statusCodes.INTERNAL_SERVER_ERROR);
@@ -17,7 +18,7 @@ module.exports = {
 
   // Fetch a single activity by ID
   async getActivityById(activityId) {
-    const { data, error } = await supabase.from('activities').select('*').eq('id', activityId).single();
+    const { data, error } = await supabase.from(TABLE).select('*').eq('id', activityId).single();
     if (error) {
       console.error(`Error fetching activity with ID ${activityId}:`, error);
       throw new CustomError(`Failed to fetch activity with ID ${activityId}`, statusCodes.NOT_FOUND);
@@ -30,7 +31,7 @@ module.exports = {
 
   // Fetch activities by user ID
   async getActivitiesByUserId(userId) {
-    const { data, error } = await supabase.from('activities').select('*').eq('user_id', userId);
+    const { data, error } = await supabase.from(TABLE).select('*').eq('user_id', userId);
     if (error) {
       console.error(`Error fetching activities for user ID ${userId}:`, error);
       throw new CustomError(`Failed to fetch activities for user ID ${userId}`, statusCodes.NOT_FOUND);
@@ -40,7 +41,7 @@ module.exports = {
 
   // Add a new activity
   async addActivity(activity) {
-    const { data, error } = await supabase.from('activities').insert([activity]);
+    const { data, error } = await supabase.from(TABLE).insert([activity]);
     if (error) {
       console.error('Error adding activity:', error);
       throw new CustomError('Failed to add activity', statusCodes.BAD_REQUEST);
@@ -50,7 +51,7 @@ module.exports = {
 
   // Update an existing activity by ID
   async updateActivity(activityId, updatedActivity) {
-    const { data, error } = await supabase.from('activities').update(updatedActivity).eq('id', activityId);
+    const { data, error } = await supabase.from(TABLE).update(updatedActivity).eq('id', activityId);
     if (error) {
       console.error(`Error updating activity with ID ${activityId}:`, error);
       throw new CustomError(`Failed to update activity with ID ${activityId}`, statusCodes.BAD_REQUEST);
@@ -60,7 +61,7 @@ module.exports = {
 
   // Delete an activity by ID
   async deleteActivity(activityId) {
-    const { data, error } = await supabase.from('activities').delete().eq('id', activityId);
+    const { data, error } = await supabase.from(TABLE).delete().eq('id', activityId);
     if (error) {
       console.error(`Error deleting activity with ID ${activityId}:`, error);
       throw new CustomError(`Failed to delete activity with ID ${activityId}`, statusCodes.INTERNAL_SERVER_ERROR);
@@ -72,7 +73,7 @@ module.exports = {
     for (const item of data.items) {
 
         const insert = mapToDB(item)
-        const { data: newItem, error } = await supabase.from('activities').insert(insert).select('*')
+        const { data: newItem, error } = await supabase.from(TABLE).insert(insert).select('*')
         if (error) {
             throw error
         }

@@ -3,11 +3,12 @@ const { CustomError, statusCodes } = require('./errors')
 const { connect } = require('./supabase');
 
 const supabase = connect();
+const TABLE = 'users'; // Define the table name for clarity
 
 module.exports = {
   // Fetch all users
   async getAllUsers() {
-    const { data, error } = await supabase.from('users').select('*');
+    const { data, error } = await supabase.from(TABLE).select('*');
     if (error) {
       console.error('Error fetching users:', error);
       throw error;
@@ -17,7 +18,7 @@ module.exports = {
 
   // Fetch a single user by ID
   async getUserById(userId) {
-    const { data, error } = await supabase.from('users').select('*').eq('id', userId).single();
+    const { data, error } = await supabase.from(TABLE).select('*').eq('id', userId).single();
     if (error) {
       console.error(`Error fetching user with ID ${userId}:`, error);
       throw error;
@@ -27,7 +28,7 @@ module.exports = {
 
   // Add a new user
   async addUser(user) {
-    const { data, error } = await supabase.from('users').insert([user]);
+    const { data, error } = await supabase.from(TABLE).insert([user]);
     if (error) {
       console.error('Error adding user:', error);
       throw error;
@@ -37,7 +38,7 @@ module.exports = {
 
   // Update an existing user by ID
   async updateUser(userId, updatedUser) {
-    const { data, error } = await supabase.from('users').update(updatedUser).eq('id', userId);
+    const { data, error } = await supabase.from(TABLE).update(updatedUser).eq('id', userId);
     if (error) {
       console.error(`Error updating user with ID ${userId}:`, error);
       throw error;
@@ -47,7 +48,7 @@ module.exports = {
 
   // Delete a user by ID
   async deleteUser(userId) {
-    const { data, error } = await supabase.from('users').delete().eq('id', userId);
+    const { data, error } = await supabase.from(TABLE).delete().eq('id', userId);
     if (error) {
       console.error(`Error deleting user with ID ${userId}:`, error);
       throw error;
@@ -59,7 +60,7 @@ module.exports = {
     for (const item of data.items) {
 
         const insert = mapToDB(item)
-        const { data: newItem, error } = await supabase.from('users').insert(insert).select('*')
+        const { data: newItem, error } = await supabase.from(TABLE).insert(insert).select('*')
         if (error) {
             throw error
         }

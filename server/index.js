@@ -33,8 +33,9 @@ app
   .get('/hello', (req, res) => {
     res.send('Hello New Paltz, NY!!!')
   })
-  .use('/api/v1/products', productsController)
   .use('/api/v1/users', usersController)
+  .use('/api/v1/activities', activitiesController)
+  .use('/api/v1/routes', routesController)
   
   .use('/', express.static('dist')) 
 
