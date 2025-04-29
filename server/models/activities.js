@@ -3,7 +3,7 @@ const { connect } = require('./supabase');
 const { CustomError, statusCodes } = require('./errors');
 
 const supabase = connect();
-const TABLE = 'activities'; // Define the table name for clarity
+const TABLE = "activities"; // Define the table name for clarity
 
 module.exports = {
   // Fetch all activities
@@ -31,7 +31,7 @@ module.exports = {
 
   // Fetch activities by user ID
   async getActivitiesByUserId(userId) {
-    const { data, error } = await supabase.from(TABLE).select('*').eq('user_id', userId);
+    const { data, error } = await supabase.from(TABLE).select('*').eq('userId', userId);
     if (error) {
       console.error(`Error fetching activities for user ID ${userId}:`, error);
       throw new CustomError(`Failed to fetch activities for user ID ${userId}`, statusCodes.NOT_FOUND);

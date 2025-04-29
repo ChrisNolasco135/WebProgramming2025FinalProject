@@ -28,22 +28,40 @@ module.exports = {
 
   // Add a new route
   async addRoute(route) {
-    const { data, error } = await supabase.from(TABLE).insert([route]);
+    // Fetch all routes to determine the latest ID
+    const { data: routes, error: fetchError } = await supabase.from('routes').select('*');
+    if (fetchError) {
+      console.error('Error fetching routes:', fetchError);
+      throw fetchError;
+    }
+
+    // Calculate the next ID
+    const latestId = routes.length > 0 ? Math.max(...routes.map(r => r.id)) : 0;
+    route.id = latestId + 1;
+
+    // Insert the new route
+    const { data, error } = await supabase.from('routes').insert([route]);
     if (error) {
       console.error('Error adding route:', error);
-      throw new CustomError('Failed to add route', statusCodes.BAD_REQUEST);
+      throw error;
     }
-    return data;
+
+    return data; // Return the created route
   },
 
   // Update an existing route by ID
   async updateRoute(routeId, updatedRoute) {
-    const { data, error } = await supabase.from(TABLE).update(updatedRoute).eq('id', routeId);
+    const { data, error } = await supabase
+      .from(TABLE)
+      .update(updatedRoute) // Update the route with the new data
+      .eq('id', routeId); // Match the route by ID
+
     if (error) {
       console.error(`Error updating route with ID ${routeId}:`, error);
-      throw new CustomError(`Failed to update route with ID ${routeId}`, statusCodes.BAD_REQUEST);
+      throw error;
     }
-    return data;
+
+    return data; // Return the updated route
   },
 
   // Delete a route by ID

@@ -11,7 +11,7 @@
                 "height": 180,
                 "weight": 75
             },
-            "icon": "@/assests/John Doe.svg",
+            "icon": "@/assets/John Doe.svg",
             "role": "user"
         },
         {   
@@ -25,7 +25,7 @@
                 "height": 165,
                 "weight": 60
             },
-            "icon": "@/assests/Jane Smith.svg",
+            "icon": "@/assets/Jane Smith.svg",
             "role": "user"
         },
         {
@@ -39,7 +39,7 @@
                 "height": 170,
                 "weight": 55
             },
-            "icon": "@/assests/Alice Johnson.svg",
+            "icon": "@/assets/Alice Johnson.svg",
             "role": "user"
         },
         {
@@ -53,7 +53,7 @@
                 "height": 0,
                 "weight": 0
             },
-            "icon": "@/assests/admin.svg",
+            "icon": "@/assets/admin.svg",
             "role": "admin"
         }]
     }

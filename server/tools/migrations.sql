@@ -3,7 +3,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) NOT NULL,
     age INT NOT NULL,
     gender VARCHAR(50) NOT NULL,
     height INT NOT NULL,
@@ -18,9 +18,9 @@ CREATE TABLE activities (
     name VARCHAR(255) NOT NULL,
     type VARCHAR(100) NOT NULL,
     duration INT NOT NULL,
-    calories_burned INT NOT NULL,
+    caloriesBurned INT NOT NULL,
     date TIMESTAMP NOT NULL,
-    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    userId INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Create the "routes" table
@@ -44,7 +44,7 @@ VALUES
 (4, 'Admin', 'User', 'example@example.com', 0, 'male', 0, 0, '@/assests/admin.svg', 'admin');
 
 -- Insert data into the "activities" table
-INSERT INTO activities (id, name, type, duration, calories_burned, date, user_id)
+INSERT INTO activities (id, name, type, duration, caloriesBurned, date, userId)
 VALUES
 (1, 'Morning Yoga', 'Yoga', 30, 150, '2023-10-01T08:00:00Z', 1),
 (2, 'Evening Run', 'Running', 45, 400, '2023-10-01T18:00:00Z', 2),
@@ -55,7 +55,27 @@ VALUES
 (7, 'Cardio Blast', 'Cardio', 30, 350, '2023-10-04T08:00:00Z', 1),
 (8, 'Zumba Dance', 'Dance', 60, 400, '2023-10-04T19:00:00Z', 2),
 (9, 'Core Workout', 'Core Training', 30, 250, '2023-10-05T10:00:00Z', 3),
-(10, 'Full Body Stretch', 'Stretching', 20, 100, '2023-10-05T18:00:00Z', 1);
+(10, 'Full Body Stretch', 'Stretching', 20, 100, '2023-10-05T18:00:00Z', 1),
+(11, 'Trail Hiking', 'Hiking', 120, 700, '2023-10-06T07:00:00Z', 2),
+(12, 'Boxing Training', 'Boxing', 45, 450, '2023-10-06T16:00:00Z', 3),
+(13, 'Swimming Laps', 'Swimming', 60, 500, '2023-10-07T08:00:00Z', 1),
+(14, 'Rock Climbing', 'Climbing', 90, 600, '2023-10-07T18:00:00Z', 2),
+(15, 'Dance Cardio', 'Dance Cardio', 45, 350, '2023-10-08T10:00:00Z', 3),
+(16, 'Meditation Session', 'Meditation', 30, 50, '2023-10-08T19:00:00Z', 1),
+(17, 'CrossFit Workout', 'CrossFit', 60, 550, '2023-10-09T07:00:00Z', 2),
+(18, 'Yoga Flow', 'Yoga', 45, 200, '2023-10-09T16:00:00Z', 3),
+(19, 'Running Intervals', 'Running', 30, 400, '2023-10-10T08:00:00Z', 1),
+(20, 'Strength Circuit', 'Weightlifting', 60, 500, '2023-10-10T18:00:00Z', 2),
+(21, 'Pilates Core', 'Pilates', 45, 200, '2023-10-11T10:00:00Z', 3),
+(22, 'Cycling Endurance', 'Cycling', 90, 600, '2023-10-11T19:00:00Z', 1),
+(23, 'HIIT Cardio', 'High Intensity Interval Training', 30, 300, '2023-10-12T08:00:00Z', 2),
+(24, 'Core Strengthening', 'Core Training', 30, 250, '2023-10-12T18:00:00Z', 3),
+(25, 'Full Body Workout', 'Full Body', 60, 500, '2023-10-13T10:00:00Z', 1),
+(26, 'Zumba Fitness', 'Dance', 60, 400, '2023-10-13T19:00:00Z', 2),
+(27, 'Boxing Conditioning', 'Boxing', 45, 450, '2023-10-14T08:00:00Z', 3),
+(28, 'Swimming Technique', 'Swimming', 60, 500, '2023-10-14T18:00:00Z', 1),
+(29, 'Trail Running', 'Running', 45, 400, '2023-10-15T10:00:00Z', 2),
+(30, 'Yoga Meditation', 'Yoga', 30, 150, '2023-10-15T19:00:00Z', 3);
 
 -- Insert data into the "routes" table
 INSERT INTO routes (id, name, distance, duration, difficulty, description, start_location, end_location)

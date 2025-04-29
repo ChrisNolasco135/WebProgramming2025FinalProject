@@ -30,15 +30,23 @@ router
       .catch(next);
   })
   //add new activity
-  .post('/', function(req, res, next) {
+  .post('/', async function(req, res) {
     const newActivity = req.body;
-    activitiesModel.addActivity(newActivity)
-      .then(activity => {
-        res.status(statusCodes.CREATED).json(activity);
-      })
-      .catch(next);
-  }
-  )
+
+    try {
+      // Fetch the latest activity to determine the next ID
+      const activities = await activitiesModel.getAllActivities();
+      const latestId = activities.length > 0 ? Math.max(...activities.map(a => a.id)) : 0;
+      newActivity.id = latestId + 1;
+
+      // Add the new activity
+      const activity = await activitiesModel.addActivity(newActivity);
+      res.status(201).json(activity);
+    } catch (error) {
+      console.error('Error adding activity:', error);
+      res.status(500).json({ error: 'Failed to add activity' });
+    }
+  })
   //update activity by id
   .put('/:id', function(req, res, next) {
     const { id } = req.params;

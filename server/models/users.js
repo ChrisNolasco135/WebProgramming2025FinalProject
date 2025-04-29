@@ -28,22 +28,44 @@ module.exports = {
 
   // Add a new user
   async addUser(user) {
-    const { data, error } = await supabase.from(TABLE).insert([user]);
+    // Fetch all users to determine the latest ID
+    const { data: users, error: fetchError } = await supabase.from('users').select('*');
+    if (fetchError) {
+      console.error('Error fetching users:', fetchError);
+      throw fetchError;
+    }
+
+    // Calculate the next ID
+    const latestId = users.length > 0 ? Math.max(...users.map(u => u.id)) : 0;
+    user.id = latestId + 1;
+
+    // Insert the new user
+    const { data, error } = await supabase.from('users').insert([user]);
     if (error) {
       console.error('Error adding user:', error);
       throw error;
     }
-    return data;
+
+    return data; // Return the newly created user
   },
 
   // Update an existing user by ID
   async updateUser(userId, updatedUser) {
-    const { data, error } = await supabase.from(TABLE).update(updatedUser).eq('id', userId);
+    const { data, error } = await supabase
+      .from('users')
+      .update(updatedUser) // Update the user with the new data
+      .eq('id', userId); // Ensure the query filters by the correct user ID
+
     if (error) {
       console.error(`Error updating user with ID ${userId}:`, error);
       throw error;
     }
-    return data;
+
+    if (!data || data.length === 0) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+
+    return data; // Return the updated user
   },
 
   // Delete a user by ID

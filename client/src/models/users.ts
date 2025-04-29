@@ -1,8 +1,8 @@
 const users = [
-  { id: 1, name: 'John Doe', email: 'john.doe@example.com' ,isAdmin: false, show:true, icon: '@/assests/John Doe.svg' },
-  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', isAdmin: false, show:true, icon: '@/assests/Jane Smith.svg'},
-  { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', isAdmin: false, show:true, icon: '@/assests/Alice Johnson.svg' },
-  { id: 4, name: 'Admin', email: 'example@example.com', isAdmin: true, show:true, icon: '@/assests/admin.svg'},
+  { id: 1, name: 'John Doe', email: 'john.doe@example.com' ,isAdmin: false, show:true, icon: '@/assets/John Doe.svg' },
+  { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', isAdmin: false, show:true, icon: '@/assets/Jane Smith.svg'},
+  { id: 3, name: 'Alice Johnson', email: 'alice.johnson@example.com', isAdmin: false, show:true, icon: '@/assets/Alice Johnson.svg' },
+  { id: 4, name: 'Admin', email: 'example@example.com', isAdmin: true, show:true, icon: '@/assets/admin.svg'},
 ]
 
 export type users = {
