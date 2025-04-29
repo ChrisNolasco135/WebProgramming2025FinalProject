@@ -3,13 +3,10 @@
 // Load the http module to create an http server.
 const express = require('express')
 require('dotenv').config()
-console.log('Environment Variables:', process.env)
 
 const activitiesController = require('./controllers/activities');
 const usersController = require('./controllers/users');
 const routesController = require('./controllers/routes');
-
-
 
 const PORT = process.env.PORT ?? 8000
 const app = express();
