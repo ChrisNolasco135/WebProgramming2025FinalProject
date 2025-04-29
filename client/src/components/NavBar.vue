@@ -1,27 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getUsers, isAdmin } from '@/models/users'
-import type { users } from '@/models/users'
+import { logout, login, isAdmin, refSession, isLoggedIn } from '@/models/session'
+import { ref, } from 'vue'
+import { getAllUsers, getImageUrl } from '@/models/users'
+import type { User } from '@/models/users'
 
 const isActive = ref(false)
-const users = ref<users[]>([])
-const selectedUserId = ref<number >(0)
-const selectedUserName = ref<string >()
-const userImages: { [key: number]: string } = {
-  1: new URL('@/assets/John Doe.svg', import.meta.url).href,
-  2: new URL('@/assets/Jane Smith.svg', import.meta.url).href,
-  3: new URL('@/assets/Alice Johnson.svg', import.meta.url).href,
-  4: new URL('@/assets/admin.svg', import.meta.url).href,
-}
+const users = ref<User[]>([])
 
-onMounted(() => {
-  users.value = getUsers()
+getAllUsers().then((response) => {
+    users.value = response.items
 })
 
-function selectUser(userId: number, userName: string) {
-  selectedUserId.value = userId
-  selectedUserName.value = userName
-}
+const session = refSession()
+
 </script>
 
 <template>
@@ -95,11 +86,12 @@ function selectUser(userId: number, userName: string) {
               <div class="level-left">
                 <div class="level-item">
                   <div class="image is-64x64 mt-5">
-                    <img :src="selectedUserId !== null ? userImages[selectedUserId] : ''" alt="User Image" />
+                    <img :src="getImageUrl" alt="User Image" />
                   </div>
                 </div>
                 <div class="level-item">
-                  <p>{{ selectedUserId !== 0 ? selectedUserName : 'Please Sign In' }}</p>
+                  <p v-if="isLoggedIn()">{{ session.user?.firstName && session.user?.lastName }}</p>
+                  <p v-else>Please sign in</p>
                 </div>
               </div>
             </nav>
@@ -117,11 +109,12 @@ function selectUser(userId: number, userName: string) {
               </div>
               <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                 <div class="dropdown-content">
-                  <button v-for="user in users" :key="user.id" href="#" class="dropdown-item" @click="selectUser(user.id, user.name)">
-                    {{ user.name }}
+                  <button v-for="user in users" :key="user.id" href="#" class="dropdown-item" @click="login(user.id)">
+                    <img :src="session.user?.image" alt="User Image" class="is-24x24 mr-2" />
+                    {{ user.firstName }} {{ user.lastName }}
                   </button>
-                  <hr v-if="selectedUserId == 4" class="dropdown-divider" />
-                  <RouterLink to="/users" v-if="selectedUserId !== null && isAdmin(selectedUserId)" class="dropdown-item"> Edit Users </RouterLink>
+                  <hr v-if="isAdmin()" class="dropdown-divider" />
+                  <RouterLink to="/users" v-if="isAdmin() " class="dropdown-item"> Edit Users </RouterLink>
                 </div>
               </div>
             </div>

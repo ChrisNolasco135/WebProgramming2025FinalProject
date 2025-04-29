@@ -1,53 +1,52 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { getUsers } from '@/models/users'
-import type { users } from '@/models/users'
-import { getWorkoutActivity, type WorkoutActivity } from '@/models/activities'
+import { refSession } from '@/models/session';
+import type { User } from '@/models/users';
+import { getAllUsers, getImageUrl } from '@/models/users';
+import type { Activity } from '@/models/activities';
+import { getAllActivities } from '@/models/activities';
 
-const usersArray = ref<users[]>([])
-const WorkoutActivities = ref<WorkoutActivity[]>([])
-const userImages: { [key: number]: string } = {
-  1: new URL('@/assets/John Doe.svg', import.meta.url).href,
-  2: new URL('@/assets/Jane Smith.svg', import.meta.url).href,
-  3: new URL('@/assets/Alice Johnson.svg', import.meta.url).href,
+const users = ref<User[]>([]);
+const activities = ref<Activity[]>([]);
+
+function getUserActivities(userId: number): Activity[] {
+  return activities.value.filter(activity => activity.userId === userId);
 }
 
-onMounted(() => {
-  usersArray.value = getUsers().filter(user => !user.isAdmin)
-  WorkoutActivities.value = getWorkoutActivity()
+getAllUsers().then((response) => {
+    users.value = response.items
 })
 
-function getUserActivities(userId: number) {
-  return WorkoutActivities.value.filter(activity => activity.id === userId)
-}
+
+
+const session = refSession();
 
 function closeWorkout(userId: number) {
-  const user = usersArray.value.find(user => user.id === userId)
-  if (user) {
-    user.show = false
-  }
+  users.value = users.value.filter(user => user.id !== userId);
 }
+
+
 </script>
 
 <template>
   <div>
     <section>
-      <article v-for="user in usersArray" :key="user.id" class="media">
-        <div v-if="user.show">
+      <article v-for="user in users" :key="user.id" class="media">
+        <div>
           <figure class="media-left">
             <p class="image is-64x64">
-              <img :src="userImages[user.id]" alt="User Image" />
+              <img :src="getImageUrl" alt="User Image" />
             </p>
           </figure>
           <div class="media-content">
             <div class="content">
               <p class="has-text-black">
-                <strong class="has-text-black">{{ user.name }}</strong> <small>@{{ user.name.toLowerCase().replace(' ', '') }}</small>
+                <strong class="has-text-black">{{ user.firstName + ' ' + user.lastName }}</strong> <small>@{{ (user.firstName + user.lastName).toLowerCase().replace(' ', '') }}</small>
                 <br />
                 <span v-for="activity in getUserActivities(user.id)" :key="activity.id" class="has-text-black">
                   <span class="has-text-black">Type: {{ activity.type }}</span>
                   <br />
-                  <small>{{ activity.description }}</small>
+                  <small>{{ activity.type }}</small>
                   <br />
                   <span class="has-text-black">Calories Burned: {{ activity.caloriesBurned }}</span>
                   <br />

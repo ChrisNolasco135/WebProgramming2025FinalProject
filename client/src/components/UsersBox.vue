@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import type { User } from '@/models/users'
-import { getAll } from '@/models/users'
+import { getAllUsers } from '@/models/users'
 
 const users = ref<User[]>([])
 
-onMounted(async () => {
-  const response = await getAll()
-  users.value = response.items
+getAllUsers().then((response) => {
+    users.value = response.items
 })
 
 function deleteUser(userId: number) {

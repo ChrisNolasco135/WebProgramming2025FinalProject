@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WorkoutBox from '@/components/WorkoutBox.vue';
+import ActivitiyBox from '@/components/ActivitiyBox.vue';
 
 </script>
 
@@ -11,7 +11,7 @@ import WorkoutBox from '@/components/WorkoutBox.vue';
 
     <div class="column">
       <p class="has-background-success mb-2 pb-2 pt-2 has-text-black has-text-centered">You're all up to date!</p>
-      <WorkoutBox/>
+      <ActivitiyBox/>
     </div>
 
     <div class="column">

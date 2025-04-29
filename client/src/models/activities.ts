@@ -1,49 +1,38 @@
-const workoutActivity = [{
-  id: 1,
-  name: 'John Doe',
-  date: '3/7/2025',
-  description: 'A sample workout activity',
-  type: 'Cardio',
-  duration: 30,
-  intensity: 'Medium',
-  caloriesBurned: 324,
-},
-{
-  id: 2,
-  name: 'Jane Smith',
-  date: '3/5/2025',
-  description: 'Another workout activity',
-  type: 'Strength Training',
-  duration: 45,
-  intensity: 'High',
-  caloriesBurned: 500,
-},
-{
-  id: 3,
-  name: 'Alice Johnson',
-  date: '2/24/2025',
-  description: 'A different workout activity',
-  type: 'Yoga',
-  duration: 60,
-  intensity: 'Low',
-  caloriesBurned: 200,
-},
-];
 
-export type WorkoutActivity = {
+import type { DataListEnvelope } from './dataEnvelopes'
+import { api } from './session'
+
+export interface Activity {
   id: number
   name: string
-  date: string
-  description: string
   type: string
   duration: number
-  intensity: string
+  date: string
   caloriesBurned: number
+  userId: number
 }
-export function getWorkoutActivity() {
-  return workoutActivity
+
+export function getAllActivities(): Promise<DataListEnvelope<Activity>> {
+  return api('activities')
 }
-export function getWorkoutActivityById(id: number) {
-  return workoutActivity.find(workout => workout.id === id)
+
+export function get(id: number): Promise<Activity> {
+  return api(`activities/${id}`)
 }
+
+export function create(activity: Activity): Promise<Activity> {
+  return api<DataListEnvelope<Activity>>('activities').then((envelope) => {
+    const newActivitiy = { ...activity, id: envelope.total + 1 }
+    return api(`users/${newActivitiy.id}`).then(() => newActivitiy)
+  })
+}
+
+export function update(activity: Activity): Promise<Activity> {
+  return api(`users/${activity.id}`).then(() => activity)
+}
+
+export function remove(id: number): Promise<void> {
+  return api(`activities/${id}`).then(() => undefined)
+}
+
 

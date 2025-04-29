@@ -15,7 +15,7 @@ export interface User {
   role: string
 }
 
-export function getAll(): Promise<DataListEnvelope<User>> {
+export function getAllUsers(): Promise<DataListEnvelope<User>> {
   return api('users')
 }
 
@@ -38,7 +38,8 @@ export function remove(id: number): Promise<void> {
   return api(`users/${id}`).then(() => undefined)
 }
 
-
-
+export function getImageUrl(user: User): string {
+  return new URL(user.image, import.meta.env.VITE_API_ROOT as string).toString()
+}
 
 

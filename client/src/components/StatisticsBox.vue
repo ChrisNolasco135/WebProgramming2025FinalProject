@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, inject } from 'vue'
-import { getUsers } from '@/models/users'
-import type { users } from '@/models/users'
+import { getAllUsers } from '@/models/users'
+import type { User } from '@/models/users'
+import { isAdmin } from '@/models/session'
 
-const users = ref<users[]>([])
+const users = ref<User[]>([])
 
-onMounted(() => {
-  users.value = getUsers()
+getAllUsers().then((response) => {
+    users.value = response.items
 })
 
 </script>
@@ -23,7 +24,7 @@ onMounted(() => {
       <div class="column">
         <div class="box has-background-info">
           <h2 class="title is-4">Admins</h2>
-          <p class="subtitle is-6 has-text-black">Total Admins: {{ users.filter(user => user.isAdmin).length }}</p>
+          <p class="subtitle is-6 has-text-black">Total Admins: {{ users.filter(user => isAdmin).length }}</p>
         </div>
       </div>
     </div>
