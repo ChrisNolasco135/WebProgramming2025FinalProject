@@ -8,7 +8,7 @@ const isActive = ref(false)
 const users = ref<User[]>([])
 
 getAllUsers().then((response) => {
-    users.value = response.items
+    users.value = Array.isArray(response) ? response : [response]
 })
 
 const session = refSession()
@@ -41,11 +41,11 @@ const session = refSession()
             <span>Home</span>
           </RouterLink>
 
-          <RouterLink to="/statistics" class="navbar-item">
+          <RouterLink to="/routes" class="navbar-item">
             <span>
               <i class="fas fa-chart-line"></i>
             </span>
-            <span>MyStatistics</span>
+            <span>Route Planner</span>
           </RouterLink>
 
           <RouterLink to="/social" class="navbar-item">
@@ -134,4 +134,10 @@ const session = refSession()
 </template>
 
 <style scoped>
+.image.is-64x64 {
+  width: 40px; /* Adjust the width to fit the navbar */
+  height: 40px; /* Adjust the height to fit the navbar */
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image scales correctly */
+}
 </style>

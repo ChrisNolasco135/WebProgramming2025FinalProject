@@ -1,6 +1,4 @@
-
-import type { DataListEnvelope } from './dataEnvelopes'
-import { api } from './session'
+import { api } from './myFetch'
 
 export interface User {
   id: number
@@ -15,7 +13,7 @@ export interface User {
   role: string
 }
 
-export function getAllUsers(): Promise<DataListEnvelope<User>> {
+export function getAllUsers(): Promise<User> {
   return api('users')
 }
 
@@ -24,8 +22,8 @@ export function get(id: number): Promise<User> {
 }
 
 export function create(user: User): Promise<User> {
-  return api<DataListEnvelope<User>>('users').then((envelope) => {
-    const newUser = { ...user, id: envelope.total + 1 }
+  return api<User>('users').then((envelope) => {
+    const newUser = { ...user, id: envelope.id + 1 }
     return api(`users/${newUser.id}`).then(() => newUser)
   })
 }
@@ -39,7 +37,7 @@ export function remove(id: number): Promise<void> {
 }
 
 export function getImageUrl(user: User): string {
-  return new URL(user.image, import.meta.env.VITE_API_ROOT as string).toString()
+  return new URL(`@/assets/${user.image}`, import.meta.url).toString();
 }
 
 

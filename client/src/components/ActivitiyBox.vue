@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { refSession } from '@/models/session';
+import { ref } from 'vue';
 import type { User } from '@/models/users';
 import { getAllUsers, getImageUrl } from '@/models/users';
 import type { Activity } from '@/models/activities';
-import { getAllActivities } from '@/models/activities';
+import { getAllActivities, remove } from '@/models/activities';
 
 const users = ref<User[]>([]);
 const activities = ref<Activity[]>([]);
 
-function getUserActivities(userId: number): Activity[] {
-  return activities.value.filter(activity => activity.userId === userId);
-}
-
 getAllUsers().then((response) => {
-    users.value = response.items
-})
+  const allUsers = Array.isArray(response) ? response : [response];
+  users.value = allUsers.filter(user => user.role.trim().toLowerCase() !== 'admin');
+});
 
-
-
-const session = refSession();
+getAllActivities().then((response) => {
+    activities.value = Array.isArray(response) ? response : [response];
+});
 
 function closeWorkout(userId: number) {
   users.value = users.value.filter(user => user.id !== userId);
+}
+
+function getUserActivities(userId: number): Activity[] {
+  return activities.value.filter(activity => activity.userId === userId);
 }
 
 
@@ -33,46 +33,54 @@ function closeWorkout(userId: number) {
     <section>
       <article v-for="user in users" :key="user.id" class="media">
         <div>
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img :src="getImageUrl" alt="User Image" />
-            </p>
-          </figure>
           <div class="media-content">
             <div class="content">
-              <p class="has-text-black">
-                <strong class="has-text-black">{{ user.firstName + ' ' + user.lastName }}</strong> <small>@{{ (user.firstName + user.lastName).toLowerCase().replace(' ', '') }}</small>
-                <br />
-                <span v-for="activity in getUserActivities(user.id)" :key="activity.id" class="has-text-black">
-                  <span class="has-text-black">Type: {{ activity.type }}</span>
-                  <br />
-                  <small>{{ activity.type }}</small>
-                  <br />
-                  <span class="has-text-black">Calories Burned: {{ activity.caloriesBurned }}</span>
-                  <br />
-                  <span class="has-text-black">Duration: {{ activity.duration }} minutes</span>
-                  <br />
-                  <span class="has-text-black">Date: {{ activity.date }}</span>
-                  <br />
-                </span>
-              </p>
-            </div>
-            <nav class="level is-mobile">
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-                </a>
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                </a>
-                <div class="media-right">
-                 <button class="delete" aria-label="delete" @click="() => closeWorkout(user.id)"></button>
-                </div>
+              <h3 class="title is-5 has-text-black">Activities</h3>
+
+                  <div v-if="getUserActivities(user.id).length > 0">
+                    <div v-for="activity in getUserActivities(user.id)" :key="activity.id" class="box has-background-success">
+                      <div class="user-info">
+                        <div class="user-details">
+                          <p class="has-text-black">
+                            <strong class="has-text-black">{{ user.firstName + ' ' + user.lastName }}</strong>
+                            <small>@{{ (user.firstName + user.lastName).toLowerCase().replace(' ', '') }}</small>
+                          </p>
+                        </div>
+                        <figure class="media-right">
+                          <p class="image is-64x64">
+                            <img :src="getImageUrl(user)" alt="User Image" />
+                          </p>
+                        </figure>
+                      </div>
+                      <hr>
+                      <p class="has-text-black"><strong>Type:</strong> {{ activity.type }}</p>
+                      <p class="has-text-black"><strong>Calories Burned:</strong> {{ activity.caloriesBurned }}</p>
+                      <p class="has-text-black"><strong>Duration:</strong> {{ activity.duration }} minutes</p>
+                      <p class="has-text-black"><strong>Date:</strong> {{ activity.date }}</p>
+                      <hr>
+                      <nav class="level is-mobile">
+                        <div class="level-left">
+                          <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                          </a>
+                          <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                          </a>
+                          <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                          </a>
+                          <div class="media-right">
+                            <button class="delete" aria-label="delete" @click="() => remove(activity.id)"></button>
+                          </div>
+                        </div>
+                      </nav>
+                    </div>
+                  </div>
+
+              <div v-else>
+                <p>No activities found for this user.</p>
               </div>
-            </nav>
+            </div>
           </div>
         </div>
       </article>
@@ -81,5 +89,18 @@ function closeWorkout(userId: number) {
 </template>
 
 <style scoped>
+.user-info {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse; /* Reverse the order: icon on the right, name on the left */
+  gap: 1rem; /* Add spacing between the name and the icon */
+}
 
+.media-right {
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.user-details {
+  flex-grow: 1; /* Allow the name to take up remaining space */
+}
 </style>

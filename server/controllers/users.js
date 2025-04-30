@@ -1,7 +1,6 @@
 const usersModel = require('../models/users');
 const { CustomError, statusCodes } = require('../models/errors');
 const express = require('express');
-const { route } = require('./activities');
 
 const router = express.Router();
 

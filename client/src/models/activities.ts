@@ -1,6 +1,5 @@
 
-import type { DataListEnvelope } from './dataEnvelopes'
-import { api } from './session'
+import { api } from './myFetch'
 
 export interface Activity {
   id: number
@@ -12,8 +11,12 @@ export interface Activity {
   userId: number
 }
 
-export function getAllActivities(): Promise<DataListEnvelope<Activity>> {
+export function getAllActivities(): Promise<Activity> {
   return api('activities')
+}
+
+export function getActivitiesByUserId(userId: number): Promise<Activity> {
+  return api(`activities?userId=${userId}`)
 }
 
 export function get(id: number): Promise<Activity> {
@@ -21,8 +24,8 @@ export function get(id: number): Promise<Activity> {
 }
 
 export function create(activity: Activity): Promise<Activity> {
-  return api<DataListEnvelope<Activity>>('activities').then((envelope) => {
-    const newActivitiy = { ...activity, id: envelope.total + 1 }
+  return api<Activity>('activities').then((envelope) => {
+    const newActivitiy = { ...activity, id: envelope.id + 1 }
     return api(`users/${newActivitiy.id}`).then(() => newActivitiy)
   })
 }
