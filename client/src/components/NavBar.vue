@@ -3,10 +3,6 @@ import { logout, login, isAdmin, refSession, isLoggedIn } from '@/models/session
 import { ref, } from 'vue'
 import { getAllUsers, getImageUrl } from '@/models/users'
 import type { User } from '@/models/users'
-import ManImage from '@/assets/Man.svg'
-import WomanImage from '@/assets/Woman.svg'
-import NonBinaryImage from '@/assets/NonBinary.svg'
-import Admin from '@/assets/Admin.svg'
 
 const isActive = ref(false)
 const users = ref<User[]>([])
