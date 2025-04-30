@@ -7,14 +7,6 @@ import ActivitiyBox from '@/components/ActivitiyBox.vue';
   <div class="columns">
     <div class="column">
       <h1 class="title is-1 has-text-black">Workouts</h1>
-    </div>
-
-    <div class="column">
-      <p class="has-background-success mb-2 pb-2 pt-2 has-text-black has-text-centered">You're all up to date!</p>
-      <ActivitiyBox/>
-    </div>
-
-    <div class="column">
       <nav class="level">
         <div class="level-item has-text-centered has-text-black">
           <div>
@@ -31,7 +23,7 @@ import ActivitiyBox from '@/components/ActivitiyBox.vue';
         <div class="level-item has-text-centered">
           <div>
             <p class="heading has-text-centered has-text-black">Followers</p>
-            <p class="title has-text-centered has-text-black">43</p>
+            <p class="title has-text-centered has-text-black"> 43 </p>
           </div>
         </div>
         <div class="level-item has-text-centered">
@@ -41,6 +33,15 @@ import ActivitiyBox from '@/components/ActivitiyBox.vue';
           </div>
         </div>
       </nav>
+    </div>
+
+    <div class="column">
+      <p class="has-background-success mb-2 pb-2 pt-2 has-text-black has-text-centered">You're all up to date!</p>
+      <ActivitiyBox/>
+    </div>
+
+    <div class="column">
+
     </div>
   </div>
 

@@ -9,7 +9,7 @@ export interface User {
   gender: string
   height: number
   weight: number
-  image: string
+  icon: string
   role: string
 }
 
@@ -37,7 +37,7 @@ export function remove(id: number): Promise<void> {
 }
 
 export function getImageUrl(user: User): string {
-  return new URL(`@/assets/${user.image}`, import.meta.url).toString();
+  return new URL(`../assets/${user.icon}`, import.meta.url).href;
 }
 
 

@@ -3,6 +3,10 @@ import { logout, login, isAdmin, refSession, isLoggedIn } from '@/models/session
 import { ref, } from 'vue'
 import { getAllUsers, getImageUrl } from '@/models/users'
 import type { User } from '@/models/users'
+import ManImage from '@/assets/Man.svg'
+import WomanImage from '@/assets/Woman.svg'
+import NonBinaryImage from '@/assets/NonBinary.svg'
+import Admin from '@/assets/Admin.svg'
 
 const isActive = ref(false)
 const users = ref<User[]>([])
@@ -10,6 +14,7 @@ const users = ref<User[]>([])
 getAllUsers().then((response) => {
     users.value = Array.isArray(response) ? response : [response]
 })
+
 
 const session = refSession()
 
@@ -86,7 +91,7 @@ const session = refSession()
               <div class="level-left">
                 <div class="level-item">
                   <div class="image is-64x64 mt-5">
-                    <img :src="getImageUrl" alt="User Image" />
+                    <img v-if="session.user" :src="getImageUrl(session.user)" alt="User Image" />
                   </div>
                 </div>
                 <div class="level-item">
@@ -95,7 +100,7 @@ const session = refSession()
                 </div>
               </div>
             </nav>
-            <div class="dropdown is-hoverable">
+            <div v-if="isLoggedIn()" class="dropdown is-hoverable">
               <div class="dropdown-trigger">
                 <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
                   <span class="icon is-small">
@@ -110,7 +115,7 @@ const session = refSession()
               <div class="dropdown-menu" id="dropdown-menu3" role="menu">
                 <div class="dropdown-content">
                   <button v-for="user in users" :key="user.id" href="#" class="dropdown-item" @click="login(user.id)">
-                    <img :src="session.user?.image" alt="User Image" class="is-24x24 mr-2" />
+                    <img :src="getImageUrl(user)" alt="User Image" class="is-24x24 mr-2" />
                     {{ user.firstName }} {{ user.lastName }}
                   </button>
                   <hr v-if="isAdmin()" class="dropdown-divider" />
@@ -119,11 +124,15 @@ const session = refSession()
               </div>
             </div>
             <div>
-              <button class="button is-primary">
-                <span class="icon">
-                  <i class="fab fa-twitter"></i>
+              <button class="button is-primary" @click="isLoggedIn() ? logout() : login(1)">
+                <span v-if="!isLoggedIn()">
+                  <i class="fas fa-sign-in-alt"></i>
+                  <strong> Log In</strong>
                 </span>
-                <strong>Tweet</strong>
+                <span v-if="isLoggedIn()">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <strong> Log Out</strong>
+                </span>
               </button>
             </div>
           </div>

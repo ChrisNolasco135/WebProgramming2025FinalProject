@@ -9,7 +9,6 @@ import NavBar from './components/NavBar.vue'
   </header>
 
   <div class="container body-container">
-    <NotificationList />
     <RouterView />
   </div>
 </template>

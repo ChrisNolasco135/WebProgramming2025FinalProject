@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import dayjs from 'dayjs'; // Import dayjs
 import type { User } from '@/models/users';
 import { getAllUsers, getImageUrl } from '@/models/users';
 import type { Activity } from '@/models/activities';
 import { getAllActivities, remove } from '@/models/activities';
+import { isAdmin, refSession } from '@/models/session';
 
 const users = ref<User[]>([]);
 const activities = ref<Activity[]>([]);
+const session = refSession();
 
 getAllUsers().then((response) => {
   const allUsers = Array.isArray(response) ? response : [response];
@@ -17,8 +20,8 @@ getAllActivities().then((response) => {
     activities.value = Array.isArray(response) ? response : [response];
 });
 
-function closeWorkout(userId: number) {
-  users.value = users.value.filter(user => user.id !== userId);
+function closeWorkout(activityId: number) {
+  activities.value = activities.value.filter(activity => activity.id !== activityId);
 }
 
 function getUserActivities(userId: number): Activity[] {
@@ -35,7 +38,7 @@ function getUserActivities(userId: number): Activity[] {
         <div>
           <div class="media-content">
             <div class="content">
-              <h3 class="title is-5 has-text-black">Activities</h3>
+              <h3 class="title is-5 has-text-black">Activities for {{ user.firstName }} {{ user.lastName }}</h3>
 
                   <div v-if="getUserActivities(user.id).length > 0">
                     <div v-for="activity in getUserActivities(user.id)" :key="activity.id" class="box has-background-success">
@@ -56,7 +59,7 @@ function getUserActivities(userId: number): Activity[] {
                       <p class="has-text-black"><strong>Type:</strong> {{ activity.type }}</p>
                       <p class="has-text-black"><strong>Calories Burned:</strong> {{ activity.caloriesBurned }}</p>
                       <p class="has-text-black"><strong>Duration:</strong> {{ activity.duration }} minutes</p>
-                      <p class="has-text-black"><strong>Date:</strong> {{ activity.date }}</p>
+                      <p class="has-text-black"><strong>Date:</strong> {{ dayjs(activity.date).format('MMMM D, YYYY') }}</p>
                       <hr>
                       <nav class="level is-mobile">
                         <div class="level-left">
@@ -70,7 +73,12 @@ function getUserActivities(userId: number): Activity[] {
                             <span class="icon is-small"><i class="fas fa-heart"></i></span>
                           </a>
                           <div class="media-right">
-                            <button class="delete" aria-label="delete" @click="() => remove(activity.id)"></button>
+                            <button
+                              class="delete"
+                              aria-label="delete"
+                              @click="closeWorkout(activity.id)"
+                              :disabled="!isAdmin() && session.user?.id !== activity.userId">
+                            </button>
                           </div>
                         </div>
                       </nav>

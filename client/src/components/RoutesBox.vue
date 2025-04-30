@@ -2,6 +2,7 @@
   import { ref } from 'vue';
   import type { Route } from '@/models/routes';
   import { getAllRoutes } from '@/models/routes';
+  import { isAdmin } from '@/models/session';
 
   const routes = ref<Route[]>([]);
 
@@ -44,8 +45,15 @@
             <p class="has-text-black"><strong>End Location:</strong> {{ route.endLocation }}</p>
             <p class="has-text-black"><strong>Difficulty:</strong> {{ route.difficulty }}</p>
             <br>
-            <button class="button is-danger" @click="closeRoute(route.id)">Remove</button>
-            <button class="button is-primary ml-1" @click="">Edit</button>
+            <button
+              class="button is-danger"
+              @click="closeRoute(route.id)"
+              :disabled="!isAdmin()">
+              Remove
+            </button>
+            <button class="button is-primary ml-1" @click=""
+            :disabled="!isAdmin()">
+          Edit</button>
           </div>
         </div>
       </div>

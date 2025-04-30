@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { User } from '@/models/users'
-import { getAllUsers, remove, update } from '@/models/users'
+import { getAllUsers, remove} from '@/models/users'
 
 const users = ref<User[]>([])
 
@@ -10,9 +10,6 @@ getAllUsers()
     users.value = Array.isArray(response) ? response : []
   })
 
-function deleteUser(userId: number) {
-  users.value = users.value.filter(user => user.id !== userId)
-}
 </script>
 
 <template>

@@ -3,6 +3,7 @@
 import { ref } from 'vue'
 import * as myFetch from './myFetch'
 import { get, type User } from './users'
+import router from '../router'
 
 export function api<T>(action: string): Promise<T> {
   return myFetch.api<T>(action)
@@ -29,4 +30,5 @@ export function login(id: number) {
 export function logout() {
   session.value.user = null
   session.value.token = null
+  window.location.href = '/';
 }
