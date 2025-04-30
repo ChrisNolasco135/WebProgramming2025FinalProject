@@ -5,6 +5,5 @@ export function rest<T>(url: string): Promise<T> {
 }
 
 export function api<T>(action: string): Promise<T> {
-  console.log(`API call: ${API_ROOT}${action}`)
   return rest<T>(`${API_ROOT}${action}`)
 }

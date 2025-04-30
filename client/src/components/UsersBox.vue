@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { User } from '@/models/users'
-import { getAllUsers, remove} from '@/models/users'
+import { getAllUsers} from '@/models/users'
 
 const users = ref<User[]>([])
 
@@ -9,6 +9,10 @@ getAllUsers()
   .then((response) => {
     users.value = Array.isArray(response) ? response : []
   })
+
+function closeUserBox(userId: number) {
+  users.value = users.value.filter(user => user.id !== userId)
+}
 
 </script>
 
@@ -26,7 +30,7 @@ getAllUsers()
           <p class="has-text-black">Height: {{ user.height }} cm</p>
           <p class="has-text-black">Weight: {{ user.weight }} kg</p>
           <br>
-          <button class="button is-danger" @click="remove(user.id)">Delete</button>
+          <button class="button is-danger" @click="closeUserBox(user.id)">Delete</button>
           <button class="button is-primary ml-1" @click="">Edit</button>
         </div>
       </div>
